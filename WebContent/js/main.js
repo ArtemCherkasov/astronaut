@@ -5,6 +5,7 @@ var game;
 var level1;
 var blaster;
 
+/*
 function sprite (options) {
 	var that = {};
 	that.context = options.context;
@@ -85,6 +86,7 @@ function sprite (options) {
 	
 	return that;
 }
+*/
 
 function gameLoop(sprite){
 	var that = {};
@@ -110,21 +112,7 @@ function gameLoop(sprite){
 			sprite.direct = 'left';
 			action();
 		}
-		
-		/*
-		switch(event.keyCode){
-		case 68: case 39:
-			sprite.direct = 'right';
-			action();
-			break;
-		case 37: case 65:
-			sprite.direct = 'left';
-			action();
-			break;
-		default:
-			that.stop();
-		}
-		*/
+
 		function action(){
 			if (!that.state){
 				that.state = true;
@@ -159,19 +147,19 @@ $(document).ready(function(){
 	canvas = document.getElementById("astronautAnimation");
 	canvas.width = 1024;
 	canvas.height = 768;
-	astronaut = sprite({
+
+	astronaut = new Astronaut({
 		context: canvas.getContext("2d"),
 		width: 128,
 		height: 128,
 		image: astronautImage
 	});
+
 	level1 = new Level_1(canvas);
-	blaster = new Blaster(canvas, level1);
 	
 	level1.addSceneObjects(astronaut);
-	level1.addSceneObjects(blaster);
-	
 	astronaut.render();
+	
 	game = gameLoop(astronaut);
 	window.addEventListener("keydown", function(event){
 		game.start(event);
